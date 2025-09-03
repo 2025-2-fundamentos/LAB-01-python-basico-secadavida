@@ -5,6 +5,11 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import csv
+from collections import defaultdict
+
+DATA = './files/input/data.csv'
+
 
 def pregunta_06():
     """
@@ -26,3 +31,23 @@ def pregunta_06():
      ('jjj', 5, 17)]
 
     """
+
+    values = defaultdict(list)
+
+    with open(DATA, "r", newline="") as file:
+        reader = csv.reader(file, delimiter="\t")
+
+        for row in reader:
+            ids = row[4]
+
+            for id in ids.split(","):
+                letters, number = id.split(":")
+                values[letters].append(int(number))
+
+    res = []
+    for letters in sorted(values.keys()):
+        max_val = max(values[letters])
+        min_val = min(values[letters])
+        res.append((letters, min_val, max_val))
+
+    return res

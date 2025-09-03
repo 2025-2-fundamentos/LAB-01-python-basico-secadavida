@@ -5,6 +5,11 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import csv
+from collections import defaultdict
+
+DATA = './files/input/data.csv'
+
 
 def pregunta_04():
     """
@@ -26,3 +31,18 @@ def pregunta_04():
      ('12', 3)]
 
     """
+
+    months = defaultdict(int)
+
+    with open(DATA, 'r', newline="") as file:
+        reader = csv.reader(file, delimiter="\t")
+
+        for row in reader:
+            date = row[2]
+            month = date.split("-")[1]
+
+            months[month] += 1
+
+    sorted_numerically = sorted(months.items())
+
+    return sorted_numerically

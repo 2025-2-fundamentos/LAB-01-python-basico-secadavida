@@ -5,6 +5,8 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import csv
+DATA = './files/input/data.csv'
 
 def pregunta_01():
     """
@@ -14,3 +16,12 @@ def pregunta_01():
     214
 
     """
+
+    total = 0
+
+    with open(DATA, "r", newline="") as file:
+        reader = csv.reader(file, delimiter="\t")
+        for row in reader:
+            total += int(row[1])
+
+    return total

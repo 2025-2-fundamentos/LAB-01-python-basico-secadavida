@@ -5,6 +5,11 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import csv
+from collections import defaultdict
+
+DATA = './files/input/data.csv'
+
 
 def pregunta_07():
     """
@@ -25,3 +30,20 @@ def pregunta_07():
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
 
     """
+
+    values = defaultdict(list)
+
+    with open(DATA, "r", newline="") as file:
+        reader = csv.reader(file, delimiter="\t")
+
+        for row in reader:
+            number = int(row[1])
+            letter = row[0]
+
+            values[number].append(letter)
+
+    res = []
+    for number in sorted(values.keys()):
+        res.append((number, values[number]))
+
+    return res
